@@ -43,7 +43,13 @@ class RandomUser:
 
     @staticmethod
     def __gen_random_comment(length):
-        a = ord('а')  # Russian alphabet first letter char code
+        """
+        Создание произвольного коммента определенной длины из русских букв и спецсимволов
+
+        :param length: Длина коммента
+        :return: Произвольный коммент в виде строки
+        """
+        a = ord('а')  # Код первой буквы русского алфавита
         rus_alphabet = ''.join(
             [chr(i) for i in range(a, a + 6)] + [chr(a + 33)] + [chr(i) for i in range(a + 6, a + 32)]
         )
@@ -51,18 +57,48 @@ class RandomUser:
 
         return ''.join(random.choices(valid_chars, k=length))
 
-    def __dict__(self, is_full=False):
-        dict = {"firstName": self.__name, "phone": self.__phone, "address": self.__address}
-        if is_full:
-            pass
+    def get_json(self, is_full=False):
+        """
+        Получить json с русскими символами
 
-    def __str__(self, is_full=False):
-        return f"{self.__name}\n{self.__phone}\n{self.__address}"
+        :param is_full: Полное или краткое представление объекта (по умолчанию - краткое)
+        :return: json структура объекта класса
+        """
+        return json.dumps(self.____dict__(is_full), ensure_ascii=False)
+
+    def ____dict__(self, is_full=False):
+        """
+        Перегрузка представления объекта класса в виде словаря (для последующей сериализации в json)
+
+        :param is_full: Полное или краткое представление объекта (по умолчанию - краткое)
+        :return: Представление объекта класса в виде словаря
+        """
+        dct = {"firstName": self.__name, "phone": self.__phone, "address": self.__address}
+        if is_full:
+            dct.update({"email": self.__email, "comment": self.__comment})
+        return dct
+
+    def __str__(self):
+        """
+        Перегруженная строка для читаемого представления объекта класса
+
+        :return: Объект класса в виде строки
+        """
+        s = ""
+        for key, val in self.____dict__(True).items():
+            s += f"{key}: {val}\n"
+
+        return s
 
 
 user = RandomUser()
 user1 = RandomUser("alex", "+79001234567")
 
-print(vars(user))
-print(user1)
+# print(vars(user))
+# print(user1.__str__(True))
 print(user)
+print(user1)
+print(user.__dict__)
+print(user1.__dict__)
+print(user.get_json(True))
+print(user1.get_json())
