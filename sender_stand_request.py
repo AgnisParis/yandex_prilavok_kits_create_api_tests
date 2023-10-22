@@ -1,10 +1,9 @@
 import configuration
 import requests
 import data
-from random_user import RandomUser
 
 
-def post_new_user(body=RandomUser().get_json()):
+def post_new_user(body):
     return requests.post(
         url=f"{configuration.URL_SERVICE}{configuration.CREATE_USER_PATH}",  # подставляем полный url
         json=body,  # тут тело
