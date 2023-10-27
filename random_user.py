@@ -1,9 +1,11 @@
+import json
 import random
 import string
-import json
 
 from mimesis import Person, Address
 from mimesis.locales import Locale
+
+from data import User
 
 
 class RandomUser:
@@ -64,25 +66,24 @@ class RandomUser:
         :param is_full: Полное или краткое представление объекта (по умолчанию - краткое)
         :return: json структура объекта класса
         """
-        return json.dumps(self.____dict__(is_full), ensure_ascii=False)
+        return json.dumps(self.__dict__(is_full), ensure_ascii=False)
 
-    def ____dict__(self, is_full=False):
+    def __dict__(self, is_full=False):
         """
         Перегрузка представления объекта класса в виде словаря (для последующей сериализации в json)
 
         :param is_full: Полное или краткое представление объекта (по умолчанию - краткое)
         :return: Представление объекта класса в виде словаря
         """
-        supp_k = ["email", "comment"]
         dct = {
-            "firstName": self.__name,
-            supp_k[0]: self.__email,
-            "phone": self.__phone,
-            supp_k[1]: self.__comment,
-            "address": self.__address
+            User.NAME: self.__name,
+            User.MAIL: self.__email,
+            User.PHONE: self.__phone,
+            User.COMMENT: self.__comment,
+            User.ADDRESS: self.__address
         }
         if not is_full:
-            return {k: v for k, v in dct.items() if k not in supp_k}
+            return {k: v for k, v in dct.items() if k not in [User.MAIL, User.COMMENT]}
         return dct
 
     def __str__(self):
@@ -92,7 +93,7 @@ class RandomUser:
         :return: Объект класса в виде строки
         """
         s = ""
-        for key, val in self.____dict__(True).items():
+        for key, val in self.__dict__(True).items():
             s += f"{key}: {val}\n"
 
         return s
@@ -103,9 +104,9 @@ user1 = RandomUser("alex", "+79001234567")
 
 # print(vars(user))
 # print(user1.__str__(True))
-print(user)
-print(user1)
-print(user.__dict__)
-print(user1.__dict__)
-print(user.get_json(True))
+# print(user)
+# print(user1)
+# print(user.__dict__)
+# print(user1.__dict__)
+# print(user.get_json(True))
 print(user1.get_json())

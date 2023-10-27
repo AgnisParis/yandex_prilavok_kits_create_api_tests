@@ -1,5 +1,6 @@
-import configuration
 import requests
+
+import configuration
 import data
 
 
@@ -12,9 +13,11 @@ def post_new_user(body):
 
 
 def post_new_client_kit(auth_token, body):
+    auth_header = data.kit_auth_header.copy()
+    auth_header["authToken"] = auth_token
+
     return requests.post(
         url=f"{configuration.URL_SERVICE}{configuration.CREATE_KIT_PATH}",
         json=body,
-        headers=data.headers,
-        auth=auth_token
+        headers=data.headers | auth_header
     )

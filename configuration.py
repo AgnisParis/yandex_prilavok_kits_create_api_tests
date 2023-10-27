@@ -1,3 +1,3 @@
-URL_SERVICE = "https://8d1ad501-f2ef-416a-b7a6-21df19777457.serverhub.praktikum-services.ru"
-CREATE_USER_PATH = "/api/v1/users/"
+URL_SERVICE = "https://d4fe1bfe-1671-46d4-ad13-d532e05810d7.serverhub.praktikum-services.ru"
+CREATE_USER_PATH = "/api/v1/users"
 CREATE_KIT_PATH = "/api/v1/kits"
