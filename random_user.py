@@ -97,16 +97,3 @@ class RandomUser:
             s += f"{key}: {val}\n"
 
         return s
-
-
-user = RandomUser()
-user1 = RandomUser("alex", "+79001234567")
-
-# print(vars(user))
-# print(user1.__str__(True))
-# print(user)
-# print(user1)
-# print(user.__dict__)
-# print(user1.__dict__)
-# print(user.get_json(True))
-print(user1.get_json())

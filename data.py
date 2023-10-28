@@ -36,6 +36,7 @@ class Kit:
 
 @dataclass
 class CardName:
+    OF_NONE: ClassVar[None] = None
     OF_ENGLISH_LETTERS: ClassVar[str] = "QWErty"
     OF_RUSSIAN_LETTERS: ClassVar[str] = "Мария"
     OF_WILDCARDS: ClassVar[str] = '"№%@",'
